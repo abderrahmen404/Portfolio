@@ -428,5 +428,11 @@ footer { border-top: 1px solid var(--border); padding: 1.6rem 4vw; }
   #backTop { bottom: 1rem; right: 1rem; }
 }
 
-/* Contact without form */
-.contact-grid--single { grid-template-columns: 1fr; max-width: 640px; }
+/* Contact form: honeypot + status line */
+.form-hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.form-input:invalid:not(:placeholder-shown):not(:focus) { border-color: var(--border2); }
+.form-status { font-size: .85rem; min-height: 1.3em; }
+.form-status.ok  { color: var(--green); }
+.form-status.err { color: #b91c1c; }
+[data-theme="dark"] .form-status.err { color: #f87171; }
+.btn[disabled] { opacity: .6; cursor: progress; }

@@ -6,8 +6,6 @@
   <title data-i18n="meta_title">Abderrahmen Ben Omrane · Cybersécurité · Stage de fin d'études 2027</title>
   <meta name="description" content="Étudiant en Master 2 Sécurité des Systèmes d'Information à l'Université de Technologie de Troyes. Près de deux ans en SOC, puis consultant technique. Recherche un stage de fin d'études de 6 mois en cybersécurité à partir de février 2027."/>
   <meta name="author" content="Abderrahmen Ben Omrane"/>
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-c8Qa+ov7gw8BMu6Ie6Te2VovKFa0Dgoj6FtmMCiO4po='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'"/>
-  <meta name="referrer" content="strict-origin-when-cross-origin"/>
 
   <!-- Link previews (LinkedIn, Teams, WhatsApp…) -->
   <meta property="og:type" content="profile"/>
@@ -577,7 +575,7 @@
   <div class="section-inner">
     <div class="section-eyebrow reveal" data-i18n="contact_eyebrow">Connectons-nous</div>
     <h2 class="section-title reveal" data-i18n="contact_title">Me <span>contacter</span></h2>
-    <div class="contact-grid contact-grid--single">
+    <div class="contact-grid">
       <div>
         <p class="contact-desc reveal" data-i18n="contact_desc">Vous proposez un stage de fin d'études en cybersécurité à partir de février 2027 ? Je serais ravi d'échanger avec vous — par email, par téléphone ou sur LinkedIn.</p>
         <div class="contact-links">
@@ -622,6 +620,31 @@
         </div>
       </div>
 
+      <form class="contact-form reveal reveal-delay-1" id="contactForm" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="cfName" data-i18n="form_name">Nom</label>
+          <input type="text" id="cfName" name="name" class="form-input" autocomplete="name" maxlength="100" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cfEmail" data-i18n="form_email">Email professionnel</label>
+          <input type="email" id="cfEmail" name="email" class="form-input" autocomplete="email" maxlength="200" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cfCompany" data-i18n="form_company">Entreprise (facultatif)</label>
+          <input type="text" id="cfCompany" name="company" class="form-input" autocomplete="organization" maxlength="150"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="cfMsg">Message</label>
+          <textarea id="cfMsg" name="message" class="form-textarea" minlength="10" maxlength="4000" required></textarea>
+        </div>
+        <!-- Honeypot: invisible to people, bots tend to fill it -->
+        <div class="form-hp" aria-hidden="true">
+          <label for="cfWebsite">Website</label>
+          <input type="text" id="cfWebsite" name="website" tabindex="-1" autocomplete="off"/>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="cfSubmit" data-i18n="form_send">Envoyer le message</button>
+        <p class="form-status" id="cfStatus" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </div>
 </section>

@@ -100,14 +100,31 @@ const EN = {
 
   contact_eyebrow:"Let's connect", contact_title:"Get in <span>Touch</span>",
   contact_desc:"Offering a cybersecurity end-of-studies internship starting February 2027? I'd be glad to talk — by email, phone or on LinkedIn.",
-  contact_phone:"Phone",
+  contact_phone:"Phone", form_name:"Name", form_email:"Work email", form_company:"Company (optional)",
+  form_send:"Send message",
   copy:"Copy"
 };
 
 /* Strings used only from JS (no element in the page to snapshot). */
 const UI = {
-  fr: { copied:"Copié !" },
-  en: { copied:"Copied!" }
+  fr: {
+    copied:"Copié !",
+    sending:"Envoi en cours…",
+    sent:"Merci, votre message a bien été envoyé. Je vous réponds rapidement.",
+    invalid:"Merci de vérifier les champs : nom, email valide et message d'au moins 10 caractères.",
+    tooMany:"Trop d'envois en peu de temps. Réessayez dans quelques minutes.",
+    failed:"L'envoi a échoué. Écrivez-moi directement à benomrane.abderrahmen@gmail.com.",
+    emailDraft:"Votre application email devrait s'ouvrir avec le message. Pensez à l'envoyer."
+  },
+  en: {
+    copied:"Copied!",
+    sending:"Sending…",
+    sent:"Thank you, your message has been sent. I'll get back to you shortly.",
+    invalid:"Please check the fields: name, a valid email and a message of at least 10 characters.",
+    tooMany:"Too many messages in a short time. Please try again in a few minutes.",
+    failed:"Sending failed. Please email me directly at benomrane.abderrahmen@gmail.com.",
+    emailDraft:"Your email app should open with the message. Please send it to complete."
+  }
 };
 
 const STORAGE = { lang: 'abo-lang', theme: 'abo-theme' };
@@ -209,6 +226,33 @@ function initCopy() {
   });
 }
 
+/* ── Contact form: open a prefilled email draft for static hosting ── */
+function initContactForm() {
+  const form = $('#contactForm');
+  if (!form) return;
+  const status = $('#cfStatus');
+
+  const show = (key, kind) => {
+    status.textContent = UI[lang][key];
+    status.className = 'form-status' + (kind ? ' ' + kind : '');
+  };
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!form.checkValidity()) { show('invalid', 'err'); return; }
+
+    const data = Object.fromEntries(new FormData(form));
+    const subject = lang === 'en'
+      ? `Portfolio message — ${data.name}`
+      : `Message du portfolio — ${data.name}`;
+    const body = lang === 'en'
+      ? `Name: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company || '-'}\n\n${data.message}`
+      : `Nom : ${data.name}\nEmail : ${data.email}\nEntreprise : ${data.company || '-'}\n\n${data.message}`;
+    show('emailDraft', 'ok');
+    window.location.href = `mailto:benomrane.abderrahmen@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+}
+
 /* ── Mobile menu ── */
 function initMobile() {
   const hb = $('#hamburger');
@@ -234,4 +278,5 @@ initReveal();
 initActiveNav();
 initBackTop();
 initCopy();
+initContactForm();
 initMobile();

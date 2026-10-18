@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Local secrets — never commit (copy api/local.settings.example.json instead)
+api/local.settings.json
+.env
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+
+# Old / backup files
+_backup*/
+*.bak
